@@ -46,9 +46,18 @@ public class Main {
             e.printStackTrace();
         }
 
+        // Invoking private method modData()
+        try {
+            Method method = someClass.getClass().getDeclaredMethod("modData", int.class);
+            method.setAccessible(true);
+            System.out.printf("Access to restricted method modData(): %d\n", method.invoke(someClass, 5678));
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         // Access to information about fields and methods
         Class<SomeClass> refClass = SomeClass.class;
-        System.out.println("\tDeclared methods in the SomeClass >>>");
+        System.out.println("\n\tDeclared methods in the SomeClass >>>");
         Method[] declaredMethods = refClass.getDeclaredMethods();
         for (Method method : declaredMethods){
             System.out.println(method);
